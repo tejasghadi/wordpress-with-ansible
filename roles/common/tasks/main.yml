@@ -1,0 +1,37 @@
+---
+# tasks file for nginx
+
+- name: Install prerequisite
+  apt: name={{ item }} state=present
+  become: yes
+  with_items:
+    - python-software-properties
+
+
+- name: Adding repository
+  apt_repository:
+    repo: ppa:ondrej/php
+
+- name: apt get update
+  apt:
+    update_cache: yes
+
+- name: Download WordPress
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /tmp/latest.tar.gz
+  become: yes
+
+- name: Extract WordPress
+  unarchive:
+    src: /tmp/latest.tar.gz
+    dest: /tmp
+    owner: www-data
+    group: www-data
+    copy: no
+  become: yes
+
+- name: Move WordPress install files
+  command: mv /tmp/wordpress /var/www/
+  become: yes
+

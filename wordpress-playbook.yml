@@ -1,0 +1,8 @@
+- hosts: localhost
+
+  roles:
+    - common
+    - nginx
+    - wordpress
+    - mysql
+    - php
