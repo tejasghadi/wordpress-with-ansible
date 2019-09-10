@@ -50,6 +50,7 @@ haproxy:
   image: haproxy:1.5.18
   ports:
    - '80:80'
+   - '1984:1984'
   volumes:
    - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
   links:
